@@ -1,0 +1,1001 @@
+ProcedureCodeCategory,CPTCode,ProcedureCodeDescription
+CAT,83372,Catheterization
+ECO,72710,Echocardiogram
+CTS,97181,CT Scan
+EXM,73598,Physical Examination
+BLD,67844,Blood Panel Test
+SCR,49397,Health Screening
+CHE,68319,Chemotherapy Session
+EXM,63423,Physical Examination
+ULT,35799,Ultrasound
+CON,86571,General Consultation
+PHY,68428,Physiotherapy Session
+ANE,96368,Anesthesia Administration
+XRY,20138,X-Ray Imaging
+CHE,12388,Chemotherapy Session
+DIA,35331,Dialysis Session
+MRI,18822,MRI Scan
+ECO,78665,Echocardiogram
+CTS,80370,CT Scan
+WND,67519,Wound Dressing
+WND,33469,Wound Dressing
+ANE,75182,Anesthesia Administration
+MIN,73760,Minor Surgery
+XRY,84517,X-Ray Imaging
+BLD,64811,Blood Panel Test
+SCR,17178,Health Screening
+XRY,63714,X-Ray Imaging
+CTS,97472,CT Scan
+CHE,80695,Chemotherapy Session
+CHE,76259,Chemotherapy Session
+DIA,78411,Dialysis Session
+XRY,97802,X-Ray Imaging
+SUT,60071,Suturing
+XRY,67421,X-Ray Imaging
+MIN,97505,Minor Surgery
+CON,47057,General Consultation
+CHE,32900,Chemotherapy Session
+ANE,11200,Anesthesia Administration
+BIO,53320,Biopsy
+VAC,99921,Vaccination
+MRI,13985,MRI Scan
+BIO,97120,Biopsy
+CAT,52520,Catheterization
+CHE,71691,Chemotherapy Session
+DIA,80121,Dialysis Session
+CON,48801,General Consultation
+EXM,62879,Physical Examination
+BIO,32995,Biopsy
+MRI,28906,MRI Scan
+SUT,19132,Suturing
+SCR,63116,Health Screening
+CHE,37425,Chemotherapy Session
+DIA,44323,Dialysis Session
+WND,63341,Wound Dressing
+PHY,53313,Physiotherapy Session
+BLD,22142,Blood Panel Test
+CTS,79634,CT Scan
+WND,63043,Wound Dressing
+BIO,51679,Biopsy
+VAC,24848,Vaccination
+SUT,55369,Suturing
+MIN,40502,Minor Surgery
+VAC,21258,Vaccination
+CHE,27385,Chemotherapy Session
+MAJ,18346,Major Surgery
+SUT,48413,Suturing
+BLD,19403,Blood Panel Test
+SCR,98690,Health Screening
+CAT,40597,Catheterization
+BLD,78323,Blood Panel Test
+BIO,26430,Biopsy
+MAJ,92395,Major Surgery
+SCR,90708,Health Screening
+CON,75772,General Consultation
+BLD,94100,Blood Panel Test
+BIO,73476,Biopsy
+CON,91726,General Consultation
+MAJ,16146,Major Surgery
+CON,79683,General Consultation
+WND,66383,Wound Dressing
+VAC,96629,Vaccination
+VAC,76716,Vaccination
+VAC,65995,Vaccination
+MAJ,51278,Major Surgery
+DIA,24161,Dialysis Session
+CTS,93755,CT Scan
+SUT,43222,Suturing
+MRI,67239,MRI Scan
+XRY,63721,X-Ray Imaging
+DIA,16955,Dialysis Session
+SUT,23432,Suturing
+ECO,74768,Echocardiogram
+MIN,11845,Minor Surgery
+SCR,55866,Health Screening
+CHE,84274,Chemotherapy Session
+ULT,41054,Ultrasound
+MAJ,90489,Major Surgery
+EXM,64366,Physical Examination
+CHE,70701,Chemotherapy Session
+CAT,14848,Catheterization
+CAT,24026,Catheterization
+CAT,53879,Catheterization
+PHY,58443,Physiotherapy Session
+SUT,31621,Suturing
+MRI,34114,MRI Scan
+BIO,60811,Biopsy
+VAC,50401,Vaccination
+CTS,20203,CT Scan
+CON,27527,General Consultation
+ECO,44467,Echocardiogram
+XRY,60573,X-Ray Imaging
+WND,59028,Wound Dressing
+PHY,53889,Physiotherapy Session
+MAJ,30208,Major Surgery
+MAJ,96257,Major Surgery
+PHY,88786,Physiotherapy Session
+CON,57355,General Consultation
+CAT,73742,Catheterization
+SUT,83562,Suturing
+MIN,69288,Minor Surgery
+BLD,35645,Blood Panel Test
+XRY,51571,X-Ray Imaging
+MRI,25039,MRI Scan
+BIO,59727,Biopsy
+SUT,81171,Suturing
+EXM,41258,Physical Examination
+PHY,28294,Physiotherapy Session
+CHE,10745,Chemotherapy Session
+MIN,33580,Minor Surgery
+ECO,30854,Echocardiogram
+DIA,70702,Dialysis Session
+ECO,26297,Echocardiogram
+WND,20818,Wound Dressing
+EXM,38090,Physical Examination
+SCR,95525,Health Screening
+DIA,20581,Dialysis Session
+ANE,75599,Anesthesia Administration
+EXM,16578,Physical Examination
+XRY,17846,X-Ray Imaging
+MAJ,28759,Major Surgery
+MRI,20782,MRI Scan
+MRI,46440,MRI Scan
+CHE,88742,Chemotherapy Session
+XRY,78005,X-Ray Imaging
+DIA,16749,Dialysis Session
+DIA,14177,Dialysis Session
+CTS,79936,CT Scan
+ULT,43294,Ultrasound
+SCR,68044,Health Screening
+ECO,99885,Echocardiogram
+SUT,51293,Suturing
+CTS,53629,CT Scan
+DIA,57174,Dialysis Session
+CON,68543,General Consultation
+BLD,99710,Blood Panel Test
+CHE,73686,Chemotherapy Session
+CHE,42322,Chemotherapy Session
+CTS,48025,CT Scan
+DIA,94566,Dialysis Session
+WND,38389,Wound Dressing
+WND,29618,Wound Dressing
+ANE,83452,Anesthesia Administration
+BLD,33654,Blood Panel Test
+ULT,40000,Ultrasound
+MRI,89485,MRI Scan
+DIA,18951,Dialysis Session
+XRY,34672,X-Ray Imaging
+ULT,26697,Ultrasound
+WND,96827,Wound Dressing
+BIO,18688,Biopsy
+MRI,82062,MRI Scan
+CHE,93175,Chemotherapy Session
+CON,41594,General Consultation
+BLD,64511,Blood Panel Test
+MIN,61147,Minor Surgery
+MRI,86041,MRI Scan
+ULT,44424,Ultrasound
+ULT,91746,Ultrasound
+MRI,77833,MRI Scan
+EXM,42632,Physical Examination
+EXM,56966,Physical Examination
+CTS,87020,CT Scan
+WND,77235,Wound Dressing
+ECO,94034,Echocardiogram
+EXM,11301,Physical Examination
+BIO,78730,Biopsy
+CAT,45591,Catheterization
+PHY,61123,Physiotherapy Session
+VAC,88698,Vaccination
+CON,77626,General Consultation
+CHE,75175,Chemotherapy Session
+XRY,37042,X-Ray Imaging
+MIN,28115,Minor Surgery
+SUT,85710,Suturing
+ECO,69396,Echocardiogram
+ECO,51371,Echocardiogram
+XRY,76908,X-Ray Imaging
+BLD,45766,Blood Panel Test
+WND,53896,Wound Dressing
+CAT,65966,Catheterization
+VAC,28569,Vaccination
+ANE,72152,Anesthesia Administration
+ECO,24028,Echocardiogram
+WND,94909,Wound Dressing
+DIA,34845,Dialysis Session
+CTS,71110,CT Scan
+MIN,16990,Minor Surgery
+CHE,91936,Chemotherapy Session
+WND,28826,Wound Dressing
+ULT,44002,Ultrasound
+XRY,49171,X-Ray Imaging
+ANE,61429,Anesthesia Administration
+BIO,89973,Biopsy
+MIN,78841,Minor Surgery
+ECO,46256,Echocardiogram
+ECO,55572,Echocardiogram
+CAT,83919,Catheterization
+VAC,81015,Vaccination
+MAJ,90541,Major Surgery
+MRI,13814,MRI Scan
+XRY,88891,X-Ray Imaging
+SUT,18032,Suturing
+MRI,59755,MRI Scan
+MAJ,62328,Major Surgery
+DIA,13682,Dialysis Session
+BIO,85191,Biopsy
+SUT,48917,Suturing
+ANE,71259,Anesthesia Administration
+CHE,78741,Chemotherapy Session
+BLD,36009,Blood Panel Test
+CAT,17163,Catheterization
+CAT,64614,Catheterization
+ULT,29273,Ultrasound
+SCR,65795,Health Screening
+ULT,48143,Ultrasound
+EXM,63147,Physical Examination
+ULT,53463,Ultrasound
+MRI,75802,MRI Scan
+CTS,79719,CT Scan
+XRY,84212,X-Ray Imaging
+DIA,87365,Dialysis Session
+MIN,82533,Minor Surgery
+ANE,75496,Anesthesia Administration
+EXM,33258,Physical Examination
+CHE,45073,Chemotherapy Session
+CON,45115,General Consultation
+XRY,49391,X-Ray Imaging
+ANE,60966,Anesthesia Administration
+MRI,41787,MRI Scan
+BLD,20761,Blood Panel Test
+WND,28652,Wound Dressing
+WND,79458,Wound Dressing
+PHY,99695,Physiotherapy Session
+BIO,46719,Biopsy
+BLD,28322,Blood Panel Test
+MRI,15620,MRI Scan
+SUT,85919,Suturing
+XRY,32643,X-Ray Imaging
+CTS,70100,CT Scan
+XRY,50070,X-Ray Imaging
+MIN,86796,Minor Surgery
+MIN,42200,Minor Surgery
+ULT,99846,Ultrasound
+ULT,84333,Ultrasound
+VAC,15804,Vaccination
+CON,87187,General Consultation
+BLD,77590,Blood Panel Test
+PHY,22064,Physiotherapy Session
+MAJ,99841,Major Surgery
+BLD,20483,Blood Panel Test
+MAJ,28774,Major Surgery
+VAC,28138,Vaccination
+BIO,14988,Biopsy
+WND,33811,Wound Dressing
+SUT,19697,Suturing
+PHY,54726,Physiotherapy Session
+DIA,95960,Dialysis Session
+CAT,22628,Catheterization
+MAJ,28151,Major Surgery
+CAT,94597,Catheterization
+MRI,99752,MRI Scan
+SUT,76559,Suturing
+ULT,56393,Ultrasound
+DIA,20258,Dialysis Session
+CHE,37552,Chemotherapy Session
+XRY,60237,X-Ray Imaging
+XRY,76797,X-Ray Imaging
+PHY,46554,Physiotherapy Session
+XRY,14200,X-Ray Imaging
+MRI,52559,MRI Scan
+EXM,48096,Physical Examination
+ECO,24178,Echocardiogram
+VAC,60817,Vaccination
+SUT,97715,Suturing
+PHY,53504,Physiotherapy Session
+BIO,31649,Biopsy
+XRY,40137,X-Ray Imaging
+CHE,74035,Chemotherapy Session
+WND,11029,Wound Dressing
+CAT,10160,Catheterization
+SUT,80441,Suturing
+SCR,69247,Health Screening
+CTS,75294,CT Scan
+ULT,72404,Ultrasound
+CON,58731,General Consultation
+EXM,20132,Physical Examination
+MRI,90542,MRI Scan
+CTS,17070,CT Scan
+VAC,16060,Vaccination
+CTS,36953,CT Scan
+MRI,33056,MRI Scan
+ECO,30764,Echocardiogram
+CHE,66480,Chemotherapy Session
+BLD,13484,Blood Panel Test
+CAT,72365,Catheterization
+CAT,41708,Catheterization
+VAC,47609,Vaccination
+ECO,70855,Echocardiogram
+ULT,76778,Ultrasound
+ULT,47609,Ultrasound
+SUT,41435,Suturing
+BLD,31071,Blood Panel Test
+SCR,65857,Health Screening
+SCR,71302,Health Screening
+SCR,43631,Health Screening
+CHE,79722,Chemotherapy Session
+CTS,50576,CT Scan
+BLD,65340,Blood Panel Test
+BLD,45673,Blood Panel Test
+BLD,93338,Blood Panel Test
+WND,38735,Wound Dressing
+MRI,20174,MRI Scan
+SCR,18108,Health Screening
+CTS,37375,CT Scan
+CHE,28393,Chemotherapy Session
+CON,38609,General Consultation
+SCR,40402,Health Screening
+MAJ,81402,Major Surgery
+ULT,97033,Ultrasound
+EXM,56397,Physical Examination
+DIA,43756,Dialysis Session
+PHY,41811,Physiotherapy Session
+DIA,68535,Dialysis Session
+BIO,66972,Biopsy
+MRI,73059,MRI Scan
+EXM,40948,Physical Examination
+XRY,17225,X-Ray Imaging
+BLD,56599,Blood Panel Test
+PHY,81825,Physiotherapy Session
+ECO,54938,Echocardiogram
+BLD,80524,Blood Panel Test
+EXM,32809,Physical Examination
+BLD,20113,Blood Panel Test
+EXM,91391,Physical Examination
+SCR,65420,Health Screening
+XRY,46388,X-Ray Imaging
+CON,54731,General Consultation
+BIO,88972,Biopsy
+CAT,90316,Catheterization
+EXM,64993,Physical Examination
+EXM,81503,Physical Examination
+WND,29466,Wound Dressing
+CTS,28166,CT Scan
+EXM,45577,Physical Examination
+VAC,37005,Vaccination
+MAJ,22212,Major Surgery
+WND,27850,Wound Dressing
+CAT,99174,Catheterization
+DIA,97202,Dialysis Session
+MIN,20476,Minor Surgery
+CAT,29563,Catheterization
+SUT,56624,Suturing
+BLD,57931,Blood Panel Test
+CON,75720,General Consultation
+ULT,75774,Ultrasound
+MIN,90405,Minor Surgery
+SCR,78117,Health Screening
+SUT,35617,Suturing
+ULT,90838,Ultrasound
+PHY,32072,Physiotherapy Session
+CTS,37001,CT Scan
+MRI,12747,MRI Scan
+CHE,72545,Chemotherapy Session
+ANE,81231,Anesthesia Administration
+ECO,25661,Echocardiogram
+MAJ,45027,Major Surgery
+CTS,24557,CT Scan
+SCR,26725,Health Screening
+CON,53233,General Consultation
+CTS,71258,CT Scan
+WND,12718,Wound Dressing
+ULT,96898,Ultrasound
+CTS,64075,CT Scan
+VAC,69052,Vaccination
+BIO,17666,Biopsy
+ANE,69934,Anesthesia Administration
+MIN,75302,Minor Surgery
+MIN,91235,Minor Surgery
+CON,98428,General Consultation
+PHY,95451,Physiotherapy Session
+DIA,94872,Dialysis Session
+SCR,34439,Health Screening
+DIA,49338,Dialysis Session
+SUT,43247,Suturing
+CHE,55029,Chemotherapy Session
+PHY,49379,Physiotherapy Session
+CAT,71459,Catheterization
+WND,52713,Wound Dressing
+VAC,95732,Vaccination
+ULT,88969,Ultrasound
+MAJ,67423,Major Surgery
+SUT,19096,Suturing
+SCR,23513,Health Screening
+CTS,40219,CT Scan
+MIN,24440,Minor Surgery
+MAJ,59003,Major Surgery
+XRY,64423,X-Ray Imaging
+BIO,78999,Biopsy
+DIA,73761,Dialysis Session
+ECO,37641,Echocardiogram
+BLD,25350,Blood Panel Test
+CTS,98313,CT Scan
+VAC,15438,Vaccination
+WND,27107,Wound Dressing
+ECO,49122,Echocardiogram
+BIO,30619,Biopsy
+CHE,60751,Chemotherapy Session
+BIO,48754,Biopsy
+MAJ,51588,Major Surgery
+BLD,88824,Blood Panel Test
+BLD,66263,Blood Panel Test
+CAT,40255,Catheterization
+EXM,84958,Physical Examination
+ANE,46668,Anesthesia Administration
+BIO,66023,Biopsy
+CHE,79248,Chemotherapy Session
+MIN,47580,Minor Surgery
+XRY,58651,X-Ray Imaging
+MIN,77311,Minor Surgery
+CTS,38013,CT Scan
+MRI,23047,MRI Scan
+CTS,11646,CT Scan
+ULT,85043,Ultrasound
+BIO,11908,Biopsy
+BIO,35215,Biopsy
+MAJ,55376,Major Surgery
+VAC,82717,Vaccination
+BIO,99036,Biopsy
+CHE,55214,Chemotherapy Session
+VAC,75984,Vaccination
+MIN,72420,Minor Surgery
+VAC,27726,Vaccination
+ANE,59546,Anesthesia Administration
+SUT,34956,Suturing
+CAT,99294,Catheterization
+SCR,34568,Health Screening
+VAC,72068,Vaccination
+VAC,55871,Vaccination
+WND,14517,Wound Dressing
+BLD,34551,Blood Panel Test
+BIO,74340,Biopsy
+CTS,93079,CT Scan
+XRY,19298,X-Ray Imaging
+SUT,89421,Suturing
+CHE,30265,Chemotherapy Session
+MRI,60969,MRI Scan
+SCR,50068,Health Screening
+MAJ,34151,Major Surgery
+BLD,24476,Blood Panel Test
+BIO,10877,Biopsy
+MRI,32674,MRI Scan
+CAT,40845,Catheterization
+EXM,82062,Physical Examination
+PHY,67522,Physiotherapy Session
+BLD,31282,Blood Panel Test
+ECO,77671,Echocardiogram
+ULT,81742,Ultrasound
+MAJ,14064,Major Surgery
+BLD,74043,Blood Panel Test
+BIO,42691,Biopsy
+ECO,66976,Echocardiogram
+MIN,64287,Minor Surgery
+MRI,93558,MRI Scan
+CHE,50313,Chemotherapy Session
+CAT,84594,Catheterization
+VAC,74701,Vaccination
+CAT,15486,Catheterization
+XRY,59644,X-Ray Imaging
+MRI,95020,MRI Scan
+ULT,91918,Ultrasound
+SCR,51011,Health Screening
+SUT,85865,Suturing
+WND,91329,Wound Dressing
+BIO,10346,Biopsy
+SUT,99557,Suturing
+MRI,92667,MRI Scan
+WND,25335,Wound Dressing
+MAJ,83819,Major Surgery
+XRY,63043,X-Ray Imaging
+ULT,96904,Ultrasound
+CHE,92652,Chemotherapy Session
+CTS,45009,CT Scan
+CON,38918,General Consultation
+DIA,96781,Dialysis Session
+CHE,41415,Chemotherapy Session
+CHE,55284,Chemotherapy Session
+ULT,64270,Ultrasound
+EXM,28814,Physical Examination
+SCR,34760,Health Screening
+CHE,86172,Chemotherapy Session
+MIN,53687,Minor Surgery
+CON,13489,General Consultation
+ECO,32565,Echocardiogram
+SCR,19587,Health Screening
+SCR,20132,Health Screening
+ULT,25824,Ultrasound
+BIO,76686,Biopsy
+CAT,71812,Catheterization
+MIN,10703,Minor Surgery
+CAT,99977,Catheterization
+CTS,15787,CT Scan
+EXM,10540,Physical Examination
+PHY,15254,Physiotherapy Session
+WND,80461,Wound Dressing
+ULT,28350,Ultrasound
+MAJ,33433,Major Surgery
+XRY,26754,X-Ray Imaging
+SCR,17216,Health Screening
+BLD,57047,Blood Panel Test
+MAJ,40905,Major Surgery
+ULT,27204,Ultrasound
+MIN,31864,Minor Surgery
+CTS,15572,CT Scan
+ANE,81013,Anesthesia Administration
+MAJ,86865,Major Surgery
+BLD,40806,Blood Panel Test
+ANE,85479,Anesthesia Administration
+ULT,57102,Ultrasound
+WND,60263,Wound Dressing
+CON,16461,General Consultation
+CHE,79355,Chemotherapy Session
+ECO,84874,Echocardiogram
+SCR,79250,Health Screening
+ANE,13974,Anesthesia Administration
+VAC,48203,Vaccination
+MIN,65662,Minor Surgery
+WND,60196,Wound Dressing
+WND,19290,Wound Dressing
+CON,68587,General Consultation
+SUT,25274,Suturing
+EXM,12032,Physical Examination
+CAT,22079,Catheterization
+ANE,47487,Anesthesia Administration
+XRY,71625,X-Ray Imaging
+SUT,80325,Suturing
+XRY,33770,X-Ray Imaging
+BLD,44545,Blood Panel Test
+BIO,71051,Biopsy
+DIA,56195,Dialysis Session
+MRI,84089,MRI Scan
+CHE,90458,Chemotherapy Session
+ANE,23057,Anesthesia Administration
+WND,25961,Wound Dressing
+CAT,73843,Catheterization
+DIA,35094,Dialysis Session
+CTS,84413,CT Scan
+BLD,15764,Blood Panel Test
+PHY,61402,Physiotherapy Session
+CAT,64881,Catheterization
+CTS,52492,CT Scan
+CHE,17639,Chemotherapy Session
+CTS,62807,CT Scan
+VAC,77488,Vaccination
+ECO,79579,Echocardiogram
+ANE,92521,Anesthesia Administration
+XRY,75884,X-Ray Imaging
+VAC,57849,Vaccination
+BIO,70561,Biopsy
+SUT,66309,Suturing
+DIA,15076,Dialysis Session
+SUT,33961,Suturing
+BLD,70928,Blood Panel Test
+BIO,35802,Biopsy
+MAJ,25875,Major Surgery
+SCR,65668,Health Screening
+CHE,12607,Chemotherapy Session
+WND,41276,Wound Dressing
+ULT,55663,Ultrasound
+EXM,16973,Physical Examination
+BLD,30149,Blood Panel Test
+VAC,50025,Vaccination
+BIO,54599,Biopsy
+CAT,12046,Catheterization
+ULT,61631,Ultrasound
+ECO,36115,Echocardiogram
+MIN,26599,Minor Surgery
+BIO,70688,Biopsy
+WND,17969,Wound Dressing
+WND,98121,Wound Dressing
+VAC,55805,Vaccination
+WND,30248,Wound Dressing
+CON,46095,General Consultation
+BLD,21536,Blood Panel Test
+MRI,96643,MRI Scan
+MRI,66028,MRI Scan
+MRI,89746,MRI Scan
+BLD,43706,Blood Panel Test
+SCR,93323,Health Screening
+ANE,51151,Anesthesia Administration
+ANE,66527,Anesthesia Administration
+VAC,49292,Vaccination
+MIN,60015,Minor Surgery
+XRY,80367,X-Ray Imaging
+ULT,64484,Ultrasound
+BLD,59662,Blood Panel Test
+MRI,71185,MRI Scan
+EXM,61976,Physical Examination
+SUT,93293,Suturing
+SCR,96525,Health Screening
+ECO,43337,Echocardiogram
+EXM,63966,Physical Examination
+MIN,90481,Minor Surgery
+MAJ,25742,Major Surgery
+ANE,46444,Anesthesia Administration
+SCR,31734,Health Screening
+ECO,76194,Echocardiogram
+CON,49978,General Consultation
+MAJ,11095,Major Surgery
+MRI,12273,MRI Scan
+CTS,10661,CT Scan
+MRI,11771,MRI Scan
+EXM,24383,Physical Examination
+CTS,37751,CT Scan
+VAC,68143,Vaccination
+BLD,44484,Blood Panel Test
+PHY,35082,Physiotherapy Session
+DIA,68634,Dialysis Session
+DIA,76922,Dialysis Session
+MAJ,45549,Major Surgery
+CHE,74107,Chemotherapy Session
+EXM,22795,Physical Examination
+CAT,12259,Catheterization
+ANE,72220,Anesthesia Administration
+ULT,41490,Ultrasound
+MIN,76537,Minor Surgery
+CTS,33369,CT Scan
+MIN,34966,Minor Surgery
+CTS,33651,CT Scan
+CAT,29302,Catheterization
+DIA,52613,Dialysis Session
+CHE,96903,Chemotherapy Session
+VAC,99799,Vaccination
+EXM,81065,Physical Examination
+CON,39231,General Consultation
+CON,39255,General Consultation
+SCR,73030,Health Screening
+PHY,66033,Physiotherapy Session
+PHY,31552,Physiotherapy Session
+ECO,94174,Echocardiogram
+WND,28518,Wound Dressing
+VAC,37404,Vaccination
+MAJ,40842,Major Surgery
+DIA,45202,Dialysis Session
+CTS,53188,CT Scan
+SUT,15820,Suturing
+SCR,25152,Health Screening
+SUT,54867,Suturing
+MAJ,46168,Major Surgery
+CON,25546,General Consultation
+XRY,71697,X-Ray Imaging
+MRI,74724,MRI Scan
+BLD,63066,Blood Panel Test
+ULT,58375,Ultrasound
+SUT,70531,Suturing
+WND,80648,Wound Dressing
+ULT,65252,Ultrasound
+EXM,67290,Physical Examination
+XRY,20290,X-Ray Imaging
+CTS,15544,CT Scan
+WND,95392,Wound Dressing
+ECO,16614,Echocardiogram
+BIO,14684,Biopsy
+ULT,12490,Ultrasound
+DIA,56071,Dialysis Session
+BIO,88440,Biopsy
+CAT,21309,Catheterization
+DIA,26066,Dialysis Session
+MAJ,79425,Major Surgery
+ECO,59966,Echocardiogram
+CHE,31322,Chemotherapy Session
+EXM,94426,Physical Examination
+DIA,45144,Dialysis Session
+PHY,75480,Physiotherapy Session
+WND,89742,Wound Dressing
+DIA,41291,Dialysis Session
+VAC,91677,Vaccination
+VAC,38212,Vaccination
+CON,91985,General Consultation
+ULT,37015,Ultrasound
+BLD,49502,Blood Panel Test
+BIO,76611,Biopsy
+ANE,97125,Anesthesia Administration
+CTS,85746,CT Scan
+CTS,21172,CT Scan
+XRY,47378,X-Ray Imaging
+BLD,17352,Blood Panel Test
+SCR,26828,Health Screening
+BIO,61742,Biopsy
+WND,87180,Wound Dressing
+PHY,94167,Physiotherapy Session
+CTS,98486,CT Scan
+CON,60975,General Consultation
+SUT,39529,Suturing
+SUT,21297,Suturing
+WND,51947,Wound Dressing
+ECO,55566,Echocardiogram
+CTS,93015,CT Scan
+XRY,56003,X-Ray Imaging
+CAT,98614,Catheterization
+MIN,78904,Minor Surgery
+WND,16270,Wound Dressing
+SUT,94999,Suturing
+WND,12472,Wound Dressing
+CON,75978,General Consultation
+MRI,73034,MRI Scan
+CAT,58567,Catheterization
+SCR,75310,Health Screening
+VAC,54363,Vaccination
+SUT,70414,Suturing
+CON,53056,General Consultation
+SUT,22912,Suturing
+ANE,37785,Anesthesia Administration
+ULT,24371,Ultrasound
+CAT,76711,Catheterization
+EXM,39277,Physical Examination
+CHE,82294,Chemotherapy Session
+CTS,27801,CT Scan
+MRI,35241,MRI Scan
+MIN,74383,Minor Surgery
+ANE,17106,Anesthesia Administration
+VAC,97201,Vaccination
+MAJ,80451,Major Surgery
+MAJ,46814,Major Surgery
+ULT,45994,Ultrasound
+MAJ,43570,Major Surgery
+MRI,60877,MRI Scan
+MIN,80253,Minor Surgery
+MIN,93650,Minor Surgery
+DIA,51901,Dialysis Session
+CAT,12166,Catheterization
+ANE,23815,Anesthesia Administration
+MAJ,97506,Major Surgery
+ANE,35957,Anesthesia Administration
+CON,92708,General Consultation
+XRY,80998,X-Ray Imaging
+CON,21487,General Consultation
+CAT,42054,Catheterization
+WND,76394,Wound Dressing
+CTS,58086,CT Scan
+ANE,98646,Anesthesia Administration
+SUT,49103,Suturing
+VAC,24305,Vaccination
+VAC,81979,Vaccination
+ULT,50462,Ultrasound
+EXM,33195,Physical Examination
+WND,90758,Wound Dressing
+CTS,39592,CT Scan
+ULT,31081,Ultrasound
+DIA,62815,Dialysis Session
+XRY,46677,X-Ray Imaging
+BIO,52359,Biopsy
+XRY,69450,X-Ray Imaging
+DIA,16020,Dialysis Session
+ECO,18614,Echocardiogram
+CHE,71595,Chemotherapy Session
+CON,68824,General Consultation
+CHE,42716,Chemotherapy Session
+CTS,39955,CT Scan
+PHY,73852,Physiotherapy Session
+BIO,96652,Biopsy
+MRI,14982,MRI Scan
+CON,18752,General Consultation
+EXM,16189,Physical Examination
+SUT,65343,Suturing
+EXM,57363,Physical Examination
+CTS,35243,CT Scan
+SCR,62642,Health Screening
+VAC,15796,Vaccination
+CON,55350,General Consultation
+CHE,48603,Chemotherapy Session
+MAJ,84051,Major Surgery
+SCR,73752,Health Screening
+ECO,20868,Echocardiogram
+SCR,34096,Health Screening
+CHE,71994,Chemotherapy Session
+PHY,85707,Physiotherapy Session
+MIN,40533,Minor Surgery
+ANE,20356,Anesthesia Administration
+BLD,92185,Blood Panel Test
+EXM,14989,Physical Examination
+BIO,79992,Biopsy
+ANE,30420,Anesthesia Administration
+SUT,60864,Suturing
+MAJ,31630,Major Surgery
+XRY,94840,X-Ray Imaging
+SUT,94937,Suturing
+SCR,72979,Health Screening
+CON,71325,General Consultation
+SUT,51097,Suturing
+BIO,64840,Biopsy
+CTS,88363,CT Scan
+VAC,89360,Vaccination
+MIN,90497,Minor Surgery
+CHE,10034,Chemotherapy Session
+ANE,66921,Anesthesia Administration
+VAC,12888,Vaccination
+EXM,49410,Physical Examination
+VAC,25181,Vaccination
+XRY,76248,X-Ray Imaging
+VAC,66840,Vaccination
+PHY,90771,Physiotherapy Session
+XRY,60883,X-Ray Imaging
+BIO,11400,Biopsy
+CON,90048,General Consultation
+ANE,57109,Anesthesia Administration
+ANE,60360,Anesthesia Administration
+CHE,62812,Chemotherapy Session
+PHY,23150,Physiotherapy Session
+MAJ,21133,Major Surgery
+SUT,82892,Suturing
+BLD,34493,Blood Panel Test
+WND,82175,Wound Dressing
+CAT,85655,Catheterization
+SCR,26995,Health Screening
+MAJ,21397,Major Surgery
+CTS,12280,CT Scan
+MRI,73021,MRI Scan
+MAJ,51053,Major Surgery
+XRY,75884,X-Ray Imaging
+ULT,66462,Ultrasound
+CHE,49874,Chemotherapy Session
+MAJ,38753,Major Surgery
+EXM,57322,Physical Examination
+BLD,83674,Blood Panel Test
+CAT,41123,Catheterization
+MIN,12930,Minor Surgery
+ANE,86698,Anesthesia Administration
+VAC,74624,Vaccination
+CON,52175,General Consultation
+VAC,39256,Vaccination
+PHY,35978,Physiotherapy Session
+CAT,59469,Catheterization
+ECO,35982,Echocardiogram
+ECO,24795,Echocardiogram
+CON,44321,General Consultation
+SCR,85792,Health Screening
+MAJ,27647,Major Surgery
+VAC,75745,Vaccination
+PHY,92506,Physiotherapy Session
+SCR,87560,Health Screening
+XRY,63485,X-Ray Imaging
+VAC,85873,Vaccination
+XRY,22379,X-Ray Imaging
+WND,77634,Wound Dressing
+MAJ,99921,Major Surgery
+CTS,62990,CT Scan
+ANE,25738,Anesthesia Administration
+VAC,96411,Vaccination
+MRI,72241,MRI Scan
+CHE,51912,Chemotherapy Session
+CAT,94775,Catheterization
+PHY,61733,Physiotherapy Session
+CHE,81495,Chemotherapy Session
+BIO,66620,Biopsy
+XRY,38566,X-Ray Imaging
+DIA,42812,Dialysis Session
+WND,51570,Wound Dressing
+ECO,96452,Echocardiogram
+CHE,46026,Chemotherapy Session
+BIO,87524,Biopsy
+DIA,60075,Dialysis Session
+CAT,46669,Catheterization
+CHE,97491,Chemotherapy Session
+MIN,99663,Minor Surgery
+WND,32227,Wound Dressing
+DIA,32615,Dialysis Session
+ULT,13755,Ultrasound
+CHE,64532,Chemotherapy Session
+XRY,84421,X-Ray Imaging
+CAT,85154,Catheterization
+VAC,97079,Vaccination
+ECO,30076,Echocardiogram
+CAT,54345,Catheterization
+BLD,54974,Blood Panel Test
+XRY,79298,X-Ray Imaging
+XRY,41536,X-Ray Imaging
+CAT,17139,Catheterization
+ANE,11421,Anesthesia Administration
+SUT,35971,Suturing
+MAJ,55835,Major Surgery
+SUT,80084,Suturing
+MRI,17741,MRI Scan
+VAC,97014,Vaccination
+BLD,82323,Blood Panel Test
+PHY,70295,Physiotherapy Session
+XRY,58265,X-Ray Imaging
+DIA,63177,Dialysis Session
+ANE,92102,Anesthesia Administration
+PHY,42192,Physiotherapy Session
+VAC,43287,Vaccination
+PHY,47990,Physiotherapy Session
+MIN,90885,Minor Surgery
+CTS,22696,CT Scan
+WND,15136,Wound Dressing
+DIA,76447,Dialysis Session
+ECO,77860,Echocardiogram
+BIO,55611,Biopsy
+ULT,40475,Ultrasound
+CTS,48045,CT Scan
+WND,83075,Wound Dressing
+BLD,81608,Blood Panel Test
+CON,41456,General Consultation
+XRY,21199,X-Ray Imaging
+BLD,89688,Blood Panel Test
+CON,34434,General Consultation
+CTS,67757,CT Scan
+MIN,31441,Minor Surgery
+ANE,69344,Anesthesia Administration
+ULT,67997,Ultrasound
+XRY,76332,X-Ray Imaging
+BIO,37486,Biopsy
+MAJ,47821,Major Surgery
+BLD,16171,Blood Panel Test
+BIO,75103,Biopsy
+BLD,86407,Blood Panel Test
+EXM,99861,Physical Examination
+BLD,92091,Blood Panel Test
+BLD,34629,Blood Panel Test
+MRI,28046,MRI Scan
+EXM,75790,Physical Examination
+BLD,20354,Blood Panel Test
+CHE,82995,Chemotherapy Session
+VAC,21656,Vaccination
+CHE,60608,Chemotherapy Session
+BIO,96789,Biopsy
+MIN,72105,Minor Surgery
+BLD,21275,Blood Panel Test
+WND,74366,Wound Dressing
+PHY,69233,Physiotherapy Session
+MAJ,97224,Major Surgery
+DIA,22293,Dialysis Session
+XRY,25624,X-Ray Imaging
+MAJ,10886,Major Surgery
+BIO,39610,Biopsy
+MRI,47288,MRI Scan
+ULT,15696,Ultrasound
+ANE,32873,Anesthesia Administration
+EXM,16982,Physical Examination
+CTS,74413,CT Scan
+BLD,38675,Blood Panel Test
+CTS,67246,CT Scan
+BIO,18657,Biopsy
+WND,75287,Wound Dressing
+MIN,50750,Minor Surgery
+MRI,51857,MRI Scan
+BIO,69638,Biopsy
+PHY,44303,Physiotherapy Session
+CON,23826,General Consultation
+ANE,72092,Anesthesia Administration
+CON,92133,General Consultation
+PHY,90392,Physiotherapy Session
+EXM,18696,Physical Examination
+MAJ,75794,Major Surgery
+CTS,45650,CT Scan
+CHE,93733,Chemotherapy Session
+ANE,79266,Anesthesia Administration
+SUT,10755,Suturing
+CHE,12355,Chemotherapy Session
+BIO,18148,Biopsy
+ULT,13705,Ultrasound
+DIA,12013,Dialysis Session
+VAC,21826,Vaccination
+CTS,39840,CT Scan
+WND,41299,Wound Dressing
+BIO,17730,Biopsy
+CTS,93648,CT Scan
+VAC,32087,Vaccination
+CHE,25392,Chemotherapy Session
+EXM,46213,Physical Examination
+CTS,81768,CT Scan
+CAT,87171,Catheterization
+SCR,12415,Health Screening
+XRY,43458,X-Ray Imaging
+WND,11052,Wound Dressing
+VAC,20445,Vaccination
+CAT,22275,Catheterization
+CAT,42405,Catheterization
+DIA,94218,Dialysis Session
+SCR,84805,Health Screening
+MRI,31189,MRI Scan
+CON,24279,General Consultation
