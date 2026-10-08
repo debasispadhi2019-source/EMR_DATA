@@ -1,0 +1,8 @@
+CREATE USER [Managed Identity]
+FROM EXTERNAL PROVIDER;
+
+ALTER ROLE db_datareader
+ADD MEMBER [Managed Identity];
+
+ALTER ROLE db_datawriter
+ADD MEMBER [Managed Identity];
