@@ -1,1 +1,51 @@
+# EMR Synthetic Data Generation
 
+This repository contains a synthetic Electronic Medical Record (EMR) dataset generator for two hospitals. The project is designed to create realistic healthcare data for testing, ETL pipelines, analytics, and data model validation.
+
+## Project Purpose
+- Generate fake patient, provider, encounter, claim, and transaction records
+- Simulate a multi-hospital healthcare environment
+- Provide realistic data without using real PHI or patient information
+- Support reporting, SQL analysis, and data engineering experiments
+
+## Key Features
+- Synthetic healthcare data for Hospital 1 and Hospital 2
+- Shared reference datasets across both hospitals
+- Randomized but reproducible values using seeded Faker data
+- Databricks-compatible notebook workflow
+- Easy CSV export for downstream data processing
+
+## Data Categories Included
+- Patients
+- Departments
+- Providers
+- Encounters
+- Claims
+- Transactions
+- CPT / Procedure codes
+
+## Dataset Notes
+- Shared datasets are used for both hospitals
+- Provider counts differ between the two hospitals
+- The dataset is suitable for learning, prototyping, and demonstration use cases
+
+## File Structure
+- `Dataset/EMR Synthetic Data Generation.py` - main notebook for generating the synthetic data
+- `Dataset/` - generated and supporting dataset files
+
+## Typical Use Cases
+- Healthcare analytics dashboard development
+- Data warehouse testing
+- ETL and ingestion validation
+- SQL practice and mock reporting
+- Data model design for EMR/claims systems
+
+## Execution Summary
+1. Create Databricks catalog and schema
+2. Create a storage volume for CSV outputs
+3. Install Faker library
+4. Generate synthetic records with random but seeded values
+5. Export generated tables as CSV files
+
+## Important Note
+This project is intended for demo, educational, and testing purposes only. It does not represent real medical records or real patient data.
