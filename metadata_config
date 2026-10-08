@@ -1,0 +1,25 @@
+--Hospital-1
+
+create table dbo.HopitalConfig
+(
+    ConfigID int IDENTITY(1,1) PRIMARY KEY,
+    SourceFolder varchar (100),
+    TargetDatabse Varchar(100),
+    Is_active bit not null
+);
+
+insert into HopitalConfig VALUES('hospi1','emr_hospital_a',1),
+('hospi2','emr_hospital_b',1);
+
+create table dbo.fileconfig
+(
+    configid int identity(1,1) primary key,
+    filename varchar(100) ,
+    TargetTable varchar(100),
+    IsActive bit );
+
+    insert into dbo.fileconfig values('patients.csv','patients',1),
+    ('providers.csv','providers',1),
+    ('encounters.csv','encounters',1),
+    ('departments.csv','departments',1),
+    ('transactions.csv','transactions',1);
