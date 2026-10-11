@@ -1,25 +1,87 @@
---Hospital-1
+---LS creation Time 
 
-create table dbo.HopitalConfig
+CREATE USER [ADF-EMR-HEALTH] FROM EXTERNAL PROVIDER;
+
+ALTER ROLE db_datareader ADD MEMBER [ADF-EMR-HEALTH];
+ALTER ROLE db_datawriter ADD MEMBER [ADF-EMR-HEALTH];
+
+--------
+
+CREATE TABLE dbo.HopitalConfig
 (
-    ConfigID int IDENTITY(1,1) PRIMARY KEY,
-    SourceFolder varchar (100),
-    TargetDatabse Varchar(100),
-    Is_active bit not null
+    ConfigID       INT IDENTITY(1,1) PRIMARY KEY,
+    SourceFolder   VARCHAR(100) NOT NULL UNIQUE,
+    TargetDatabase SYSNAME NOT NULL,
+    Is_active      BIT NOT NULL DEFAULT 1,
+    CreatedDate    DATETIME2 NOT NULL DEFAULT SYSDATETIME()
 );
+GO
 
-insert into HopitalConfig VALUES('hospi1','emr_hospital_a',1),
-('hospi2','emr_hospital_b',1);
-
-create table dbo.fileconfig
+-- 2. File configuration
+CREATE TABLE dbo.fileconfig
 (
-    configid int identity(1,1) primary key,
-    filename varchar(100) ,
-    TargetTable varchar(100),
-    IsActive bit );
+    ConfigID   INT IDENTITY(1,1) PRIMARY KEY,
+    filename   VARCHAR(255) NOT NULL UNIQUE,
+    TargetTable SYSNAME NOT NULL,
+    IsActive   BIT NOT NULL DEFAULT 1,
+    CreatedDate DATETIME2 NOT NULL DEFAULT SYSDATETIME()
+);
+GO
 
-    insert into dbo.fileconfig values('patients.csv','patients',1),
-    ('providers.csv','providers',1),
-    ('encounters.csv','encounters',1),
-    ('departments.csv','departments',1),
-    ('transactions.csv','transactions',1);
+
+INSERT INTO dbo.fileconfig
+    (filename, TargetTable, IsActive)
+VALUES
+    ('patients_hospit1.csv',      'patients',     1),
+    ('patients_hospit2.csv',      'patients',     1),
+    ('providers_hospit1.csv',     'providers',    1),
+    ('providers_hospit2.csv',     'providers',    1),
+    ('encounters_hospit1.csv',    'encounters',   1),
+    ('encounters_hospit2.csv',    'encounters',   1),
+    ('departments_hospit1.csv',   'departments',  1),
+    ('departments_hospit2.csv',   'departments',  1),
+    ('transactions_hospit1.csv', 'transactions', 1),
+    ('transactions_hospit2.csv', 'transactions', 1);
+GO
+;
+
+
+INSERT INTO dbo.HopitalConfig
+    (SourceFolder, TargetDatabase, Is_active)
+VALUES
+    ('hospi1', 'emr_hospital_a', 1),
+    ('hospi2', 'emr_hospital_b', 1);
+GO
+
+;
+
+
+
+--------Lookup Activity (Query)
+
+SELECT
+    h.SourceFolder,
+    h.TargetDatabase,
+    f.filename AS FileName,
+    f.TargetTable,
+    'dbo' AS TargetSchema
+FROM dbo.HopitalConfig h
+CROSS JOIN dbo.fileconfig f
+WHERE h.Is_active = 1
+  AND f.IsActive = 1
+  AND (
+       (h.SourceFolder = 'hospi1'
+        AND f.filename LIKE '%hospi%1%')
+       OR
+       (h.SourceFolder = 'hospi2'
+        AND f.filename LIKE '%hospi%2%')
+  )
+ORDER BY h.ConfigID, f.ConfigID;
+
+
+------------Grand Access to all schema ,table 
+GRANT CREATE TABLE TO [ADF-EMR-HEALTH];
+
+GRANT ALTER ON SCHEMA::dbo TO [ADF-EMR-HEALTH];
+
+GRANT INSERT ON SCHEMA::dbo TO [ADF-EMR-HEALTH];
