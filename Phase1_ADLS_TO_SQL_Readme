@@ -1,18 +1,17 @@
-# EMR Data Engineering Project — Step 1: ADLS Gen2 to Azure SQL Database
+EMR Data Engineering Project — Step 1: ADLS Gen2 to Azure SQL Database
 
-## 1. Project Overview
+1. Project Overview
 
 This project implements a metadata-driven data ingestion pipeline using Azure Data Factory (ADF), Azure Data Lake Storage Gen2 (ADLS Gen2), and Azure SQL Database.
 
-The source data contains EMR (Electronic Medical Records) data for two hospitals. ADF reads CSV files from ADLS Gen2 and dynamically loads them into the appropriate Azure SQL databases and tables based on metadata configuration.
+The source data contains EMR (Electronic Medical Records) data for two hospitals. ADF reads CSV files from ADLS Gen2 and dynamically loads them into the appropriate Azure SQL databases and tables based on metadata stored in control tables.
 
-**Current phase:** ADLS Gen2 to Azure SQL Database ingestion.
+Current phase: ADLS Gen2 to Azure SQL Database ingestion.
 
-**Future phases:** Incremental loading, SCD Type 1, SCD Type 2, auditing, restartability, monitoring, and reporting.
+Future phases: Incremental loading, SCD Type 1, SCD Type 2, auditing, restartability, monitoring, and reporting.
 
-## 2. Architecture
+2. Architecture
 
-```text
                  EMR Source CSV Files
                     Hospital 1 / 2
                           |
@@ -24,7 +23,7 @@ The source data contains EMR (Electronic Medical Records) data for two hospitals
                           v
                 Azure Data Factory
                           |
-                   Lookup Control Tables
+                 Lookup Control Tables
                           |
                           v
                        ForEach
@@ -35,30 +34,27 @@ The source data contains EMR (Electronic Medical Records) data for two hospitals
                           v
                  Azure SQL Database
                           |
-                 Hospital-specific databases
+             Hospital-specific databases
                           |
                           v
                  EMR Target Tables
-```
 
-## 3. Azure Resources
+3. Azure Resources
 
-| Resource | Name / Configuration |
-|---|---|
-| Storage account | `saemrhealth` |
-| ADLS container | `raw` |
-| Hospital 1 folder | `hospi1` |
-| Hospital 2 folder | `hospi2` |
-| Control database | `etl_control` |
-| Hospital 1 target database | `emr_hospital_a` |
-| Hospital 2 target database | `emr_hospital_b` |
-| ADF pipeline | `PL_EMR_ADLS_TO_SQL_DYNAMIC` |
+Resource| Name / Configuration
+Storage account| "saemrhealth"
+ADLS container| "raw"
+Hospital 1 folder| "hospi1"
+Hospital 2 folder| "hospi2"
+Control database| "etl_control"
+Hospital 1 target database| "emr_hospital_a"
+Hospital 2 target database| "emr_hospital_b"
+ADF pipeline| "PL_EMR_ADLS_TO_SQL_DYNAMIC"
 
 Update the resource names in this README if your deployed environment uses different names.
 
-## 4. ADLS Gen2 Folder Structure
+4. ADLS Gen2 Folder Structure
 
-```text
 raw/
 ├── hospi1/
 │   ├── patient_hospit1.csv
@@ -73,19 +69,17 @@ raw/
     ├── encounter_hospit2.csv
     ├── department_hospit2.csv
     └── transaction_hospit2.csv
-```
 
 The filenames and folder names configured in the control tables must match the actual ADLS paths exactly.
 
-## 5. Control Database and Metadata Tables
+5. Control Database and Metadata Tables
 
-The `etl_control` database stores the metadata required to select source folders, target databases, source files, and target tables.
+The "etl_control" database stores the metadata required to select source folders, target databases, source files, and target tables.
 
-### 5.1 HospitalConfig Table
+5.1 HospitalConfig Table
 
-The table `dbo.HopitalConfig` stores hospital-level configuration.
+The table "dbo.HopitalConfig" stores hospital-level configuration.
 
-```sql
 CREATE TABLE dbo.HopitalConfig
 (
     ConfigID       INT IDENTITY(1,1) PRIMARY KEY,
@@ -94,13 +88,11 @@ CREATE TABLE dbo.HopitalConfig
     Is_active      BIT NOT NULL DEFAULT 1,
     CreatedDate    DATETIME2 NOT NULL DEFAULT SYSDATETIME()
 );
-```
 
-### 5.2 fileconfig Table
+5.2 fileconfig Table
 
-The table `dbo.fileconfig` stores source filenames and target table names.
+The table "dbo.fileconfig" stores source filenames and target table names.
 
-```sql
 CREATE TABLE dbo.fileconfig
 (
     ConfigID    INT IDENTITY(1,1) PRIMARY KEY,
@@ -109,23 +101,19 @@ CREATE TABLE dbo.fileconfig
     IsActive    BIT NOT NULL DEFAULT 1,
     CreatedDate DATETIME2 NOT NULL DEFAULT SYSDATETIME()
 );
-```
 
-### 5.3 Sample Configuration Data
+5.3 Sample Configuration Data
 
 Insert the hospital configurations:
 
-```sql
 INSERT INTO dbo.HopitalConfig
     (SourceFolder, TargetDatabase)
 VALUES
     ('hospi1', 'emr_hospital_a'),
     ('hospi2', 'emr_hospital_b');
-```
 
 Insert the file configurations:
 
-```sql
 INSERT INTO dbo.fileconfig (filename, TargetTable)
 VALUES
     ('patient_hospit1.csv', 'patients'),
@@ -138,62 +126,55 @@ VALUES
     ('encounter_hospit2.csv', 'encounters'),
     ('department_hospit2.csv', 'departments'),
     ('transaction_hospit2.csv', 'transactions');
-```
 
 Run these inserts only if the corresponding configuration records do not already exist.
 
-## 6. Azure Data Factory Linked Services
+6. Azure Data Factory Linked Services
 
-Create the following linked services under **ADF Studio → Manage → Linked services**.
+Create the following linked services under ADF Studio → Manage → Linked services.
 
-| Linked service | Purpose |
-|---|---|
-| `LS_ADLS_EMR` | Connects to ADLS Gen2 source files |
-| `LS_SQL_ETL_CONTROL` | Connects to the `etl_control` database |
-| `LS_SQL_EMR_Dynamic` | Connects dynamically to target databases |
+Linked service| Purpose
+"LS_ADLS_EMR"| Connects to ADLS Gen2 source files
+"LS_SQL_ETL_CONTROL"| Connects to the "etl_control" database
+"LS_SQL_EMR_Dynamic"| Connects dynamically to target databases
 
-### 6.1 ADLS Gen2 Linked Service
+6.1 ADLS Gen2 Linked Service
 
-1. Select **New → Azure Data Lake Storage Gen2**.
-2. Select the storage account `saemrhealth`.
+1. Select New → Azure Data Lake Storage Gen2.
+2. Select the storage account "saemrhealth".
 3. Configure authentication using the approved identity or credential.
 4. Test the connection and publish.
 
-### 6.2 Control Database Linked Service
+6.2 Control Database Linked Service
 
-1. Select **New → Azure SQL Database**.
+1. Select New → Azure SQL Database.
 2. Configure the Azure SQL server.
-3. Select `etl_control` as the database.
+3. Select "etl_control" as the database.
 4. Configure the chosen authentication method.
 5. Test the connection and publish.
 
-### 6.3 Dynamic Target SQL Linked Service
+6.3 Dynamic Target SQL Linked Service
 
-Create `LS_SQL_EMR_Dynamic` and configure the database name as a parameter.
+Create "LS_SQL_EMR_Dynamic" and configure the database name as a parameter.
 
 Parameter:
 
-```text
 pDatabase
-```
 
 Database field:
 
-```text
 @linkedService().pDatabase
-```
 
 The sink dataset supplies the database name dynamically for each hospital.
 
-## 7. Azure SQL External User and Permissions
+7. Azure SQL External User and Permissions
 
 The identity used by ADF must have access to the control database and every target database used by the pipeline.
 
 For a managed identity, an Azure SQL administrator can create a database user and grant the required permissions.
 
-Run the following script separately in `etl_control` and in each target database, substituting the actual ADF managed identity name.
+Run the following script separately in "etl_control" and in each target database, substituting the actual ADF managed identity name.
 
-```sql
 CREATE USER [<ADF-managed-identity-name>]
 FROM EXTERNAL PROVIDER;
 GO
@@ -205,93 +186,75 @@ GO
 ALTER ROLE db_datawriter
 ADD MEMBER [<ADF-managed-identity-name>];
 GO
-```
 
-If the user already exists, do not run `CREATE USER` again. Verify the existing database user and its permissions instead.
+If the user already exists, do not run "CREATE USER" again. Verify the existing database user and its permissions instead.
 
-### Required access
+Required access
 
-- **Control database:** Read access to `dbo.HopitalConfig` and `dbo.fileconfig`.
-- **Target databases:** The permissions needed to write the destination tables.
-- **ADLS Gen2:** Read access to the source CSV files.
-- **ADF execution:** Appropriate Azure RBAC and Data Factory permissions for the person or service that starts and monitors the pipeline.
+- Control database: Read access to "dbo.HopitalConfig" and "dbo.fileconfig".
+- Target databases: The permissions needed to write the destination tables.
+- ADLS Gen2: Read access to the source CSV files.
+- ADF execution: Appropriate Azure RBAC and Data Factory permissions for the person or service that starts and monitors the pipeline.
 
-For ADLS, the identity used by the linked service may require the **Storage Blob Data Reader** role and appropriate filesystem/path ACL access, depending on the authentication configuration.
+For ADLS, the identity used by the linked service may require the Storage Blob Data Reader role and appropriate filesystem/path ACL access, depending on the authentication configuration.
 
-**Security:** Do not grant `db_owner` or unrestricted access to all databases by default. Use least-privilege access. Create external users and grant database permissions separately in each database.
+Security: Do not grant "db_owner" or unrestricted access to all databases by default. Use least-privilege access. Create external users and grant database permissions separately in each database that the pipeline accesses. If the linked service uses a different external user or service principal rather than the ADF managed identity, grant permissions to that actual identity.
 
-## 8. Datasets
+8. Datasets
 
-### 8.1 Source Dataset: `DS_ADLS_EMR_CSV`
+8.1 Source Dataset: "DS_ADLS_EMR_CSV"
 
 Dataset type: DelimitedText.
 
 Parameters:
 
-```text
 pFolder
 pFileName
-```
 
-Configure the container as `raw`.
+Configure the container as "raw".
 
 Directory:
 
-```text
 @dataset().pFolder
-```
 
 File name:
 
-```text
 @dataset().pFileName
-```
 
-### 8.2 Sink Dataset: `DS_SQL_EMR`
+8.2 Sink Dataset: "DS_SQL_EMR"
 
 Dataset type: Azure SQL Database.
 
 Parameters:
 
-```text
 pDatabase
 pSchema
 pTable
-```
 
 Configure the linked service parameter:
 
-```text
 pDatabase = @dataset().pDatabase
-```
 
 Configure the table schema:
 
-```text
 @dataset().pSchema
-```
 
 Configure the table name:
 
-```text
 @dataset().pTable
-```
 
-### 8.3 Control Dataset: `DS_SQL_ETL_CONTROL`
+8.3 Control Dataset: "DS_SQL_ETL_CONTROL"
 
-Create a separate Azure SQL dataset connected to `LS_SQL_ETL_CONTROL`. Use this dataset for the metadata Lookup activity.
+Create a separate Azure SQL dataset connected to "LS_SQL_ETL_CONTROL". Use this dataset for the metadata Lookup activity.
 
-## 9. ADF Pipeline Implementation
+9. ADF Pipeline Implementation
 
 Pipeline name:
 
-```text
 PL_EMR_ADLS_TO_SQL_DYNAMIC
-```
 
 Pipeline flow:
 
-```text
 Lookup_EMR_Metadata
         |
         v
@@ -299,19 +262,17 @@ Lookup_EMR_Metadata
         |
         v
    Copy_EMR_CSV
-```
 
-### Step 1: Lookup Activity
+Step 1: Lookup Activity
 
-Activity name: `Lookup_EMR_Metadata`
+Activity name: "Lookup_EMR_Metadata"
 
-Dataset: `DS_SQL_ETL_CONTROL`
+Dataset: "DS_SQL_ETL_CONTROL"
 
-Enable query mode and disable **First row only**.
+Enable query mode and disable First row only.
 
 Query:
 
-```sql
 SELECT
     h.SourceFolder,
     h.TargetDatabase,
@@ -330,100 +291,87 @@ WHERE h.Is_active = 1
         AND f.filename LIKE '%hospit2%')
   )
 ORDER BY h.ConfigID, f.ConfigID;
-```
 
 Expected result: 10 metadata rows when both hospitals and all ten file configurations are active.
 
-### Step 2: ForEach Activity
+Step 2: ForEach Activity
 
 Activity name:
 
-```text
 ForEach_EMR
-```
 
 Items expression:
 
-```text
 @activity('Lookup_EMR_Metadata').output.value
-```
 
 For initial testing, enable sequential execution. Parallel execution can be enabled later after confirming the database and pipeline can safely handle concurrent loads.
 
-### Step 3: Copy Activity
+Step 3: Copy Activity
 
 Activity name:
 
-```text
 Copy_EMR_CSV
-```
 
-Place this activity inside `ForEach_EMR`.
+Place this activity inside "ForEach_EMR".
 
-**Source dataset:** `DS_ADLS_EMR_CSV`
+Source dataset: "DS_ADLS_EMR_CSV"
 
-| Parameter | Value |
-|---|---|
-| `pFolder` | `@item().SourceFolder` |
-| `pFileName` | `@item().FileName` |
+Parameter| Value
+"pFolder"| "@item().SourceFolder"
+"pFileName"| "@item().FileName"
 
-**Sink dataset:** `DS_SQL_EMR`
+Sink dataset: "DS_SQL_EMR"
 
-| Parameter | Value |
-|---|---|
-| `pDatabase` | `@item().TargetDatabase` |
-| `pSchema` | `@item().TargetSchema` |
-| `pTable` | `@item().TargetTable` |
+Parameter| Value
+"pDatabase"| "@item().TargetDatabase"
+"pSchema"| "@item().TargetSchema"
+"pTable"| "@item().TargetTable"
 
 Ensure that each destination table exists and its columns and data types are compatible with the incoming CSV. Configure column mappings when the source and target columns do not match automatically.
 
-## 10. Pipeline Execution and Validation
+10. Pipeline Execution and Validation
 
 1. Verify that all source files exist in the correct ADLS folders.
 2. Confirm the linked service connection tests pass.
-3. Verify the external user and permissions in `etl_control` and both target databases.
+3. Verify the external user and permissions in "etl_control" and both target databases.
 4. Check the metadata records in the control tables.
-5. Run **Debug** for `PL_EMR_ADLS_TO_SQL_DYNAMIC`.
+5. Run Debug for "PL_EMR_ADLS_TO_SQL_DYNAMIC".
 6. Review the Lookup output and confirm that it returns the expected rows.
 7. Review each ForEach iteration and its Copy activity result.
 8. Validate the data in the target databases.
 
 Example validation query:
 
-```sql
 SELECT COUNT(*) AS TotalPatients
 FROM dbo.patients;
-```
 
 Run this query in the relevant target database after a successful load.
 
-## 11. Troubleshooting
+11. Troubleshooting
 
-### FileNotFound / PathNotFound
+FileNotFound / PathNotFound
 
 Verify the full source path:
 
-```text
 raw/hospi1/patient_hospit1.csv
-```
 
-Check for spelling differences, missing files, incorrect folder names, and case differences. For example, `department_hospit1.csv` and `departments_hospit1.csv` are different filenames.
+Check for spelling differences, missing files, incorrect folder names, and case differences. For example, "department_hospit1.csv" and "departments_hospit1.csv" are different filenames.
 
-### SQL Permission Error
+SQL Permission Error
 
 Check that the identity configured in the linked service has the required database permissions in the control database and the selected target database.
 
-### Lookup Returns Zero Rows
+Lookup Returns Zero Rows
 
-Check `Is_active`, `IsActive`, the source folder names, and the file naming patterns in the control tables.
+Check "Is_active", "IsActive", the source folder names, and the file naming patterns in the control tables.
 
-### Copy Activity Fails
+Copy Activity Fails
 
 Check the source and sink dataset parameters, target table existence, column mappings, data types, and activity error details.
 
-## 12. Current Scope and Future Enhancements
+12. Current Scope and Future Enhancements
 
-**Implemented in this phase:**
+Implemented in this phase:
 
 - ADLS Gen2 CSV source integration.
 - Metadata-driven ingestion using two control tables.
@@ -432,7 +380,7 @@ Check the source and sink dataset parameters, target table existence, column map
 - ADF Lookup, ForEach, and Copy activities.
 - External identity and database permission configuration.
 
-**Planned next phases:**
+Planned next phases:
 
 - Full and incremental load framework.
 - Watermark-based incremental processing.
@@ -442,9 +390,9 @@ Check the source and sink dataset parameters, target table existence, column map
 - Error handling, alerts, and monitoring.
 - Databricks transformations and downstream analytics.
 
-**Important:** The current Copy pipeline is a basic metadata-driven ingestion implementation. It does not yet provide watermark-based incremental loading, SCD processing, or guaranteed duplicate prevention. Additional enhancements will be implemented in subsequent phases.
+Important: The current Copy pipeline is a basic metadata-driven ingestion implementation. It does not yet provide watermark-based incremental loading, SCD processing, or guaranteed duplicate prevention on reruns. Those features must be implemented in subsequent phases.
 
-## 13. Expected Outcome
+13. Expected Outcome
 
 The pipeline reads EMR CSV files from ADLS Gen2, obtains source-to-target mappings from SQL control tables, and loads the data into the appropriate hospital database and destination table.
 
