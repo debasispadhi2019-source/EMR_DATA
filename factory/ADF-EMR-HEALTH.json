@@ -1,0 +1,15 @@
+{
+	"name": "ADF-EMR-HEALTH",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "577eecfe-dd69-45d9-9a70-a278bf547582",
+		"tenantId": "eb4fcfdb-31eb-4149-b314-f88e4dd35658"
+	}
+}
