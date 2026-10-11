@@ -3,21 +3,37 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQL_EMR_Dynamic",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"pDatabse": {
+					"value": "@dataset().pDatabase",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
-			"pDatabase": {
-				"type": "string"
-			},
 			"pSchema": {
 				"type": "string"
 			},
 			"pTable": {
 				"type": "string"
+			},
+			"pDatabase": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().pSchema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().pTable",
+				"type": "Expression"
+			}
+		}
 	}
 }
