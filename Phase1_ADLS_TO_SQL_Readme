@@ -285,10 +285,10 @@ WHERE h.Is_active = 1
   AND f.IsActive = 1
   AND (
        (h.SourceFolder = 'hospi1'
-        AND f.filename LIKE '%hospit1%')
+        AND f.filename LIKE '%hospi%1%')
        OR
        (h.SourceFolder = 'hospi2'
-        AND f.filename LIKE '%hospit2%')
+        AND f.filename LIKE '%hospi%2%')
   )
 ORDER BY h.ConfigID, f.ConfigID;
 
