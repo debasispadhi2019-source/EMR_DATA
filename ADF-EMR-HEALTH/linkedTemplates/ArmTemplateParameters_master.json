@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-EMR-HEALTH"
+		},
+		"LS_ADLS_EMR_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "emrdbuser.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "etl_control"
+		},
+		"LS_ADLS_EMR_properties_typeProperties_url": {
+			"value": "https://saemrhealth.dfs.core.windows.net/"
+		},
+		"LS_EMT_KEYVALUT_properties_typeProperties_baseUrl": {
+			"value": "https://emr-secrect-key.vault.azure.net/"
+		},
+		"LS_SQL_EMR_Dynamic_properties_typeProperties_server": {
+			"value": "emrdbuser.database.windows.net"
+		},
+		"LS_SQL_EMR_Dynamic_properties_typeProperties_database": {
+			"value": "@{linkedService().pDatabse}"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
