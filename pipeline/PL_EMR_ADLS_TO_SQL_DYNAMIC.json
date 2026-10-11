@@ -108,18 +108,9 @@
 									"referenceName": "DS_SQL_EMR",
 									"type": "DatasetReference",
 									"parameters": {
-										"pSchema": {
-											"value": "@item().dbo",
-											"type": "Expression"
-										},
-										"pTable": {
-											"value": "@item().patients",
-											"type": "Expression"
-										},
-										"pDatabase": {
-											"value": "@item().TargetDatabase",
-											"type": "Expression"
-										}
+										"pSchema": "dbo",
+										"pTable": "patients",
+										"pDatabase": "emr_hospital_a"
 									}
 								}
 							]
