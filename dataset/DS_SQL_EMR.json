@@ -1,0 +1,23 @@
+{
+	"name": "DS_SQL_EMR",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_EMR_Dynamic",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pDatabase": {
+				"type": "string"
+			},
+			"pSchema": {
+				"type": "string"
+			},
+			"pTable": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
