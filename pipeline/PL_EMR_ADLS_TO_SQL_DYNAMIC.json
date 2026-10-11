@@ -1,0 +1,34 @@
+{
+	"name": "PL_EMR_ADLS_TO_SQL_DYNAMIC",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_EMR_Metadata",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "\nSELECT\n    h.SourceFolder,\n    h.TargetDatabase,\n    f.filename AS FileName,\n    f.TargetTable,\n    'dbo' AS TargetSchema\nFROM dbo.HopitalConfig h\nCROSS JOIN dbo.fileconfig f\nWHERE h.Is_active = 1\n  AND f.IsActive = 1\n  AND (\n       (h.SourceFolder = 'hospi1'\n        AND f.filename LIKE '%hospit1%')\n       OR\n       (h.SourceFolder = 'hospi2'\n        AND f.filename LIKE '%hospit2%')\n  )\nORDER BY h.ConfigID, f.ConfigID;\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_SQL_ETL_CONTROL",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"annotations": []
+	}
+}
