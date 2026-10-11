@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup_EMR_Metadata ",
+				"name": "Lookup_EMR_Metadata",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -33,7 +33,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup_EMR_Metadata ",
+						"activity": "Lookup_EMR_Metadata",
 						"dependencyConditions": [
 							"Succeeded"
 						]
