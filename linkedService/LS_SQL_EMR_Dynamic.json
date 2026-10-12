@@ -9,11 +9,7 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"server": "emrdbuser.database.windows.net",
-			"database": "linkedService().pDatabase",
-			"encrypt": "mandatory",
-			"trustServerCertificate": false,
-			"authenticationType": "SystemAssignedManagedIdentity"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=emrdbuser.database.windows.net;Initial Catalog=linkedService().pDatabase"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
