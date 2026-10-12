@@ -104,7 +104,7 @@
 											"value": "@item().FileName",
 											"type": "Expression"
 										},
-										"dir": "raw"
+										"container": "raw"
 									}
 								}
 							],
