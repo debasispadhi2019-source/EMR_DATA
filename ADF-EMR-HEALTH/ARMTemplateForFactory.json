@@ -27,19 +27,480 @@
 			"type": "string",
 			"defaultValue": "https://emr-secrect-key.vault.azure.net/"
 		},
-		"LS_SQL_EMR_Dynamic_properties_typeProperties_server": {
+		"LS_SQL_EMR_UPD_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "emrdbuser.database.windows.net"
 		},
-		"LS_SQL_EMR_Dynamic_properties_typeProperties_database": {
+		"LS_SQL_EMR_UPD_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "@{linkedService().pDatabse}"
+			"defaultValue": "@{linkedService().pDatabase}"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_EMR_ADLS_TO_SQL_DYNAMIC')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_EMR_Metadata",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 4,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT\n    h.SourceFolder,\n    h.TargetDatabase,\n    f.filename AS FileName,\n    f.TargetTable,\n    'dbo' AS TargetSchema\nFROM dbo.HopitalConfig h\nCROSS JOIN dbo.fileconfig f\nWHERE h.Is_active = 1\n  AND f.IsActive = 1\n  AND (\n       (h.SourceFolder = 'hospi1'\n        AND f.filename LIKE '%hospi%1%')\n       OR\n       (h.SourceFolder = 'hospi2'\n        AND f.filename LIKE '%hospi%2%')\n  )\nORDER BY h.ConfigID, f.ConfigID;\n",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "DS_SQL_ETL_CONTROL",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach_EMR",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_EMR_Metadata",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_EMR_Metadata').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy_EMR_CSV",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 3,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"preCopyScript": {
+												"value": "TRUNCATE TABLE @{item().TargetSchema}.@{item().TargetTable}",
+												"type": "Expression"
+											},
+											"writeBehavior": "insert",
+											"sqlWriterUseTableLock": false,
+											"tableOption": "autoCreate",
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_ADLS_EMR_CSV",
+											"type": "DatasetReference",
+											"parameters": {
+												"pFolder": {
+													"value": "@item().SourceFolder",
+													"type": "Expression"
+												},
+												"pFileName": {
+													"value": "@item().FileName",
+													"type": "Expression"
+												},
+												"container": "raw"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_SQL_EMR",
+											"type": "DatasetReference",
+											"parameters": {
+												"pSchema": {
+													"value": "@item().TargetSchema",
+													"type": "Expression"
+												},
+												"pTable": {
+													"value": "@item().TargetTable",
+													"type": "Expression"
+												},
+												"pDatabase": {
+													"value": "@item().TargetDatabase",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_ETL_CONTROL')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_EMR_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_EMR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_SQL_BRONZE_DYNAMIC')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "LOOKUP_EMR_CONFIG_FILE",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"dataset": {
+								"referenceName": "DS_ADLS_EMR_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"pFolder": "emr",
+									"pFileName": "load_config.csv",
+									"container": "config"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach_EMR",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "LOOKUP_EMR_CONFIG_FILE",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('LOOKUP_EMR_CONFIG_FILE').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "EMR_FILE_EXISTS",
+									"type": "GetMetadata",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"dataset": {
+											"referenceName": "DS_ADLS_EMR_PARQUEET",
+											"type": "DatasetReference",
+											"parameters": {
+												"container": "bronze",
+												"pFolder": {
+													"value": "@item().targetpath",
+													"type": "Expression"
+												},
+												"pFileName": {
+													"value": "@split(item().tablename,'.')[1]",
+													"type": "Expression"
+												}
+											}
+										},
+										"fieldList": [
+											"exists"
+										],
+										"storeSettings": {
+											"type": "AzureBlobFSReadSettings",
+											"recursive": true,
+											"enablePartitionDiscovery": false
+										},
+										"formatSettings": {
+											"type": "ParquetReadSettings"
+										}
+									}
+								},
+								{
+									"name": "Check_IF_FILE_EXIST",
+									"type": "IfCondition",
+									"dependsOn": [
+										{
+											"activity": "EMR_FILE_EXISTS",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@equals(activity('EMR_FILE_EXISTS').output.exists,true)",
+											"type": "Expression"
+										},
+										"ifTrueActivities": [
+											{
+												"name": "Archive_Move_File",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "ParquetSource",
+														"storeSettings": {
+															"type": "AzureBlobFSReadSettings",
+															"recursive": true,
+															"enablePartitionDiscovery": false
+														},
+														"formatSettings": {
+															"type": "ParquetReadSettings"
+														}
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_ADLS_EMR_PARQUEET",
+														"type": "DatasetReference",
+														"parameters": {
+															"container": "bronze",
+															"pFolder": {
+																"value": "@item().targetpath",
+																"type": "Expression"
+															},
+															"pFileName": {
+																"value": "@split(item().tablename,'.')[1]",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "DS_ADLS_EMR_PARQUEET",
+														"type": "DatasetReference",
+														"parameters": {
+															"container": "bronze",
+															"pFolder": "@concat(     item().targetpath,     '/Archive/',     formatDateTime(utcnow(),'yyyy'),     '/',     formatDateTime(utcnow(),'MMM'),     '/',     formatDateTime(utcnow(),'dd'),     '/' )",
+															"pFileName": {
+																"value": "@split(item().tablename,'.')[1]",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											}
+										]
+									}
+								},
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [
+										{
+											"activity": "Check_IF_FILE_EXIST",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@equals(item().loadtype,'Full')",
+											"type": "Expression"
+										},
+										"ifTrueActivities": [
+											{
+												"name": "FUll_Load",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "AzureSqlSource",
+														"sqlReaderQuery": {
+															"value": "@concat( 'SELECT *, ''', item().datasource, ''' AS datasource FROM ', item().tablename)",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_SQL_EMR",
+														"type": "DatasetReference",
+														"parameters": {
+															"pSchema": {
+																"value": "@split(item().tablename,'.')[0]",
+																"type": "Expression"
+															},
+															"pTable": {
+																"value": "@split(item().tablename,'.')[1]",
+																"type": "Expression"
+															},
+															"pDatabase": {
+																"value": "@item().database",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "DS_ADLS_EMR_PARQUEET",
+														"type": "DatasetReference",
+														"parameters": {
+															"container": "bronze",
+															"pFolder": {
+																"value": "@item().targetpath",
+																"type": "Expression"
+															},
+															"pFileName": {
+																"value": "@concat(split(item().tablename, '.')[1], '.parquet')",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_EMR_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_EMR_PARQUEET')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_EMR')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_ADLS_EMR_CSV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -54,6 +515,9 @@
 						"type": "string"
 					},
 					"pFileName": {
+						"type": "string"
+					},
+					"container": {
 						"type": "string"
 					}
 				},
@@ -72,7 +536,10 @@
 							"value": "@dataset().pFolder",
 							"type": "Expression"
 						},
-						"fileSystem": "raw"
+						"fileSystem": {
+							"value": "@dataset().container",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -86,15 +553,61 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_EMR_PARQUEET')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_EMR",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"container": {
+						"type": "string"
+					},
+					"pFolder": {
+						"type": "string"
+					},
+					"pFileName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().pFileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().pFolder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().container",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_EMR')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_SQL_EMR')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "LS_SQL_EMR_Dynamic",
+					"referenceName": "LS_SQL_EMR_UPD",
 					"type": "LinkedServiceReference",
 					"parameters": {
-						"pDatabse": {
+						"pDatabase": {
 							"value": "@dataset().pDatabase",
 							"type": "Expression"
 						}
@@ -126,7 +639,25 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_EMR_Dynamic')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_EMR_UPD')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SQL_ETL_CONTROL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
 			]
 		},
 		{
@@ -177,188 +708,26 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_SQL_EMR_Dynamic')]",
+			"name": "[concat(parameters('factoryName'), '/LS_SQL_EMR_UPD')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"parameters": {
-					"pDatabse": {
+					"pDatabase": {
 						"type": "string"
 					}
 				},
 				"annotations": [],
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"server": "[parameters('LS_SQL_EMR_Dynamic_properties_typeProperties_server')]",
-					"database": "[parameters('LS_SQL_EMR_Dynamic_properties_typeProperties_database')]",
+					"server": "[parameters('LS_SQL_EMR_UPD_properties_typeProperties_server')]",
+					"database": "[parameters('LS_SQL_EMR_UPD_properties_typeProperties_database')]",
 					"encrypt": "mandatory",
 					"trustServerCertificate": false,
 					"authenticationType": "SystemAssignedManagedIdentity"
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PL_EMR_ADLS_TO_SQL_DYNAMIC')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_EMR_Metadata",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT\n    h.SourceFolder,\n    h.TargetDatabase,\n    f.filename AS FileName,\n    f.TargetTable,\n    'dbo' AS TargetSchema\nFROM dbo.HopitalConfig h\nCROSS JOIN dbo.fileconfig f\nWHERE h.Is_active = 1\n  AND f.IsActive = 1\n  AND (\n       (h.SourceFolder = 'hospi1'\n        AND f.filename LIKE '%hospi%1%')\n       OR\n       (h.SourceFolder = 'hospi2'\n        AND f.filename LIKE '%hospi%2%')\n  )\nORDER BY h.ConfigID, f.ConfigID;\n",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "DS_SQL_ETL_CONTROL",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach_EMR",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_EMR_Metadata",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_EMR_Metadata').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "Copy_EMR_CSV",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true,
-												"enablePartitionDiscovery": false
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false,
-											"tableOption": "autoCreate",
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "DS_ADLS_EMR_CSV",
-											"type": "DatasetReference",
-											"parameters": {
-												"pFolder": {
-													"value": "@item().SourceFolder",
-													"type": "Expression"
-												},
-												"pFileName": {
-													"value": "@item().FileName",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "DS_SQL_EMR",
-											"type": "DatasetReference",
-											"parameters": {
-												"pSchema": {
-													"value": "@item().TargetSchema",
-													"type": "Expression"
-												},
-												"pTable": {
-													"value": "@item().TargetTable",
-													"type": "Expression"
-												},
-												"pDatabase": {
-													"value": "@item().TargetDatabase",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_ETL_CONTROL')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_EMR_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_EMR')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_ETL_CONTROL')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
 		}
 	]
 }

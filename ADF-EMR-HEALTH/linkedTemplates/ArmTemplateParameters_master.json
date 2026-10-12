@@ -20,11 +20,11 @@
 		"LS_EMT_KEYVALUT_properties_typeProperties_baseUrl": {
 			"value": "https://emr-secrect-key.vault.azure.net/"
 		},
-		"LS_SQL_EMR_Dynamic_properties_typeProperties_server": {
+		"LS_SQL_EMR_UPD_properties_typeProperties_server": {
 			"value": "emrdbuser.database.windows.net"
 		},
-		"LS_SQL_EMR_Dynamic_properties_typeProperties_database": {
-			"value": "@{linkedService().pDatabse}"
+		"LS_SQL_EMR_UPD_properties_typeProperties_database": {
+			"value": "@{linkedService().pDatabase}"
 		},
 		"containerUri": {
 			"value": ""
