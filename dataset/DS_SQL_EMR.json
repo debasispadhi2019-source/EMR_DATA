@@ -5,7 +5,7 @@
 			"referenceName": "LS_SQL_EMR_Dynamic",
 			"type": "LinkedServiceReference",
 			"parameters": {
-				"pDatabse": {
+				"pDatabase": {
 					"value": "@dataset().pDatabase",
 					"type": "Expression"
 				}
