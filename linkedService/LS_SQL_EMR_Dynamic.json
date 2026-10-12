@@ -1,9 +1,8 @@
 {
 	"name": "LS_SQL_EMR_Dynamic",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"parameters": {
-			"pDatabse": {
+			"pDatabase": {
 				"type": "string"
 			}
 		},
@@ -11,10 +10,11 @@
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
 			"server": "emrdbuser.database.windows.net",
-			"database": "@{linkedService().pDatabse}",
+			"database": "linkedService().pDatabase",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
 			"authenticationType": "SystemAssignedManagedIdentity"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
