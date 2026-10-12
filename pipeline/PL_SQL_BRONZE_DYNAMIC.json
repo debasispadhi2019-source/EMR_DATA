@@ -1,0 +1,301 @@
+{
+	"name": "PL_SQL_BRONZE_DYNAMIC",
+	"properties": {
+		"activities": [
+			{
+				"name": "LOOKUP_EMR_CONFIG_FILE",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "DS_ADLS_EMR_CSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"pFolder": "emr",
+							"pFileName": "load_config.csv",
+							"container": "config"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach_EMR",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LOOKUP_EMR_CONFIG_FILE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LOOKUP_EMR_CONFIG_FILE').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "EMR_FILE_EXISTS",
+							"type": "GetMetadata",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DS_ADLS_EMR_PARQUEET",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": "bronze",
+										"pFolder": {
+											"value": "@item().targetpath",
+											"type": "Expression"
+										},
+										"pFileName": {
+											"value": "@split(item().tablename,'.')[1]",
+											"type": "Expression"
+										}
+									}
+								},
+								"fieldList": [
+									"exists"
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "ParquetReadSettings"
+								}
+							}
+						},
+						{
+							"name": "Check_IF_FILE_EXIST",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "EMR_FILE_EXISTS",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(activity('EMR_FILE_EXISTS').output.exists,true)",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Archive_Move_File",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "ParquetSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "ParquetReadSettings"
+												}
+											},
+											"sink": {
+												"type": "ParquetSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "ParquetWriteSettings"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "DS_ADLS_EMR_PARQUEET",
+												"type": "DatasetReference",
+												"parameters": {
+													"container": "bronze",
+													"pFolder": {
+														"value": "@item().targetpath",
+														"type": "Expression"
+													},
+													"pFileName": {
+														"value": "@split(item().tablename,'.')[1]",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_ADLS_EMR_PARQUEET",
+												"type": "DatasetReference",
+												"parameters": {
+													"container": "bronze",
+													"pFolder": "@concat(     item().targetpath,     '/Archive/',     formatDateTime(utcnow(),'yyyy'),     '/',     formatDateTime(utcnow(),'MMM'),     '/',     formatDateTime(utcnow(),'dd'),     '/' )",
+													"pFileName": {
+														"value": "@split(item().tablename,'.')[1]",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Check_IF_FILE_EXIST",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().loadtype,'Full')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "FUll_Load",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "AzureSqlSource",
+												"sqlReaderQuery": {
+													"value": "@concat( 'SELECT *, ''', item().datasource, ''' AS datasource FROM ', item().tablename)",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"sink": {
+												"type": "ParquetSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "ParquetWriteSettings"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "DS_SQL_EMR",
+												"type": "DatasetReference",
+												"parameters": {
+													"pSchema": {
+														"value": "@split(item().tablename,'.')[0]",
+														"type": "Expression"
+													},
+													"pTable": {
+														"value": "@split(item().tablename,'.')[1]",
+														"type": "Expression"
+													},
+													"pDatabase": {
+														"value": "@item().database",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_ADLS_EMR_PARQUEET",
+												"type": "DatasetReference",
+												"parameters": {
+													"container": "bronze",
+													"pFolder": {
+														"value": "@item().targetpath",
+														"type": "Expression"
+													},
+													"pFileName": {
+														"value": "@concat(split(item().tablename, '.')[1], '.parquet')",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}

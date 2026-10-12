@@ -103,7 +103,8 @@
 										"pFileName": {
 											"value": "@item().FileName",
 											"type": "Expression"
-										}
+										},
+										"container": "raw"
 									}
 								}
 							],
