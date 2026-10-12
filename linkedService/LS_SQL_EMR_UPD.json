@@ -1,0 +1,19 @@
+{
+	"name": "LS_SQL_EMR_UPD",
+	"properties": {
+		"parameters": {
+			"pDatabase": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "emrdbuser.database.windows.net",
+			"database": "@{linkedService().pDatabase}",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SystemAssignedManagedIdentity"
+		}
+	}
+}
