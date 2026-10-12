@@ -11,6 +11,9 @@
 			},
 			"pFileName": {
 				"type": "string"
+			},
+			"dir": {
+				"type": "string"
 			}
 		},
 		"annotations": [
@@ -28,7 +31,10 @@
 					"value": "@dataset().pFolder",
 					"type": "Expression"
 				},
-				"fileSystem": "raw"
+				"fileSystem": {
+					"value": "@dataset().dir",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
