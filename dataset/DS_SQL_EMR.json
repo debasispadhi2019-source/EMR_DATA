@@ -2,10 +2,10 @@
 	"name": "DS_SQL_EMR",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SQL_EMR_Dynamic",
+			"referenceName": "LS_SQL_EMR_UPD",
 			"type": "LinkedServiceReference",
 			"parameters": {
-				"pDatabse": {
+				"pDatabase": {
 					"value": "@dataset().pDatabase",
 					"type": "Expression"
 				}

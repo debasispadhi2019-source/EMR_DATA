@@ -1,5 +1,5 @@
 {
-	"name": "LS_SQL_EMR_Dynamic",
+	"name": "LS_SQL_EMR_UPD",
 	"properties": {
 		"parameters": {
 			"pDatabase": {
@@ -10,11 +10,10 @@
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
 			"server": "emrdbuser.database.windows.net",
-			"database": "linkedService().pDatabase",
+			"database": "@{linkedService().pDatabase}",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
 			"authenticationType": "SystemAssignedManagedIdentity"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
